@@ -1,6 +1,6 @@
 "use client";
 
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useSession, signOut, signIn } from "next-auth/react";
 
 import { Button } from "./button";
@@ -10,6 +10,10 @@ export const AuthButtons = () => {
 
   const handleGithubSignin = () => {
     signIn("github");
+  };
+
+  const handleGoogleSignin = () => {
+    signIn("google");
   };
 
   const handleLogout = () => {
@@ -23,7 +27,11 @@ export const AuthButtons = () => {
     </>
   ) : (
     <>
-      <Button content={<FaGithub size={24} />} handler={handleGithubSignin} />
+      <h2>Select login option</h2>
+      <div className="flex">
+        <Button content={<FaGithub size={24} />} handler={handleGithubSignin} />
+        <Button content={<FaGoogle size={24} />} handler={handleGoogleSignin} />
+      </div>
     </>
   );
 };
