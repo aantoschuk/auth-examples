@@ -1,0 +1,11 @@
+# node
+
+# recursive ignore 
+**/node_modules/
+dist/
+.next/
+.env*
+npm-debug.log*
+
+# ignore macOS metadata file
+.DS_Store
