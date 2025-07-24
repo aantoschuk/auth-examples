@@ -5,11 +5,16 @@ import { AppService } from './modules/app/app.service';
 import { AppController } from './modules/app/app.controller';
 
 import { DBModule } from './modules/database/db.module';
+import { UserModule } from './modules/user/user.module';
 
 import configuration from './config/configuration';
 
 @Module({
-  imports: [ConfigModule.forRoot({ load: [configuration] }), DBModule],
+  imports: [
+    ConfigModule.forRoot({ load: [configuration] }),
+    DBModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
