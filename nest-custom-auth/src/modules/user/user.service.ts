@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { DBService } from '../database/db.service';
 
@@ -7,6 +7,7 @@ import { usersTable } from '../../db/schema';
 
 import { CreateUserDTO } from './dto/user.dto';
 import { register } from 'module';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UserService {
@@ -40,8 +41,22 @@ export class UserService {
 
   // get all users from the users table
   async get() {
-      const db = this.dbService.getDB()
-      const users = await db.select().from(usersTable)
-      return users
+    const db = this.dbService.getDB();
+    const users = await db.select().from(usersTable);
+    return users;
+  }
+
+  async findOne(email: string) {
+    const db = this.dbService.getDB();
+    email = email.trim().toLowerCase();
+
+    const user = await db
+      .select()
+      .from(usersTable)
+      .where(eq(usersTable.email, email));
+
+    if (user.length === 0) throw new NotFoundException();
+
+    return user[0];
   }
 }
