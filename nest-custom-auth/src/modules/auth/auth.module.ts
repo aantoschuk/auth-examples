@@ -25,5 +25,6 @@ import configuration from '../../config/configuration';
   ],
   providers: [AuthService, UserService, RefreshTokenService],
   controllers: [AuthController],
+  exports: [RefreshTokenService],
 })
 export class AuthModule {}
